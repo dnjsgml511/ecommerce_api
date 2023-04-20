@@ -1,7 +1,6 @@
 package com.ecommerce.api.ecommerce.controller
 
 import com.ecommerce.api.ecommerce.dto.req.SaveProductReqDto
-import com.ecommerce.api.ecommerce.dto.req.SearchProductReqDto
 import com.ecommerce.api.ecommerce.entity.Product
 import com.ecommerce.api.ecommerce.framework.response.ResponseDto
 import com.ecommerce.api.ecommerce.framework.response.ResponseModel
@@ -21,9 +20,9 @@ class ProductController(
 
     @GetMapping("/products")
     suspend fun productList(
-        @RequestParam searchProductReqDto: SearchProductReqDto
+        @RequestParam(value = "productName", defaultValue = "") productName: String
     ): ResponseDto<List<Product>> {
-        return productService.searchProduct(reqDto = searchProductReqDto).responseMapping()
+        return productService.searchProduct(productName = productName).responseMapping()
     }
 
     @PostMapping("/product")

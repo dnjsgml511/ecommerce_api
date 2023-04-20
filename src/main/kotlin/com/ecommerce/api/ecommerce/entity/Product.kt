@@ -12,7 +12,7 @@ data class Product(
     val productExplain: String,
     val productPrice: Int,
     val productCount: Int,
-    val productImage: String,
+    val productImage: String?,
     val createDate: String,
 ){
 }
