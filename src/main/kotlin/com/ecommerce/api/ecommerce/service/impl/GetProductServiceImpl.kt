@@ -1,6 +1,5 @@
 package com.ecommerce.api.ecommerce.service.impl
 
-import com.ecommerce.api.ecommerce.dto.req.SearchProductReqDto
 import com.ecommerce.api.ecommerce.entity.Product
 import com.ecommerce.api.ecommerce.repository.ProductRepository
 import com.ecommerce.api.ecommerce.service.service.GetProductService
@@ -12,8 +11,9 @@ class GetProductServiceImpl(
     private val productRepository: ProductRepository
 ): GetProductService {
 
-    override suspend fun searchProduct(reqDto: SearchProductReqDto): List<Product> = coroutineScope{
-        productRepository.findByProductName(productName = reqDto.productName)
+    override suspend fun searchProduct(productName: String): List<Product> = coroutineScope{
+        val productName = "%${productName}%"
+        productRepository.findByProductNameLike(productName = productName)
             .toStream().toList()
     }
 }
