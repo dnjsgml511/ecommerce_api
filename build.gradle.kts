@@ -31,6 +31,24 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-reactor
 	runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
 
+	// jwt
+	implementation("io.jsonwebtoken:jjwt-api:0.11.2")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
+
+	// 암호화
+	implementation("de.svenkubiak:jBCrypt:0.4.1")
+
+
+//	// spring security
+//	implementation("org.springframework.boot:spring-boot-starter-security")
+//	implementation("org.springframework.security:spring-security-test")
+//	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-config
+//	implementation("org.springframework.security:spring-security-config:5.7.3")
+//
+//
+//	// jwt
+//	implementation("io.jsonwebtoken:jjwt:0.9.1")
 
 
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-r2dbc
