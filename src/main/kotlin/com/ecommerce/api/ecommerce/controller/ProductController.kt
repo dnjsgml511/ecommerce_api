@@ -9,26 +9,28 @@ import com.ecommerce.api.ecommerce.service.impl.SaveProductServiceImpl
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@RequestMapping("/product")
 class ProductController(
         private val productService: GetProductServiceImpl,
-        private val saveProductServiceImpl: SaveProductServiceImpl,
+        private val saveProductService: SaveProductServiceImpl,
 ) : ResponseModel(){
 
-    @GetMapping("/products")
+    @GetMapping("/list")
     suspend fun productList(
         @RequestParam(value = "productName", defaultValue = "") productName: String
     ): ResponseDto<List<Product>> {
         return productService.searchProduct(productName = productName).responseMapping()
     }
 
-    @PostMapping("/product")
+    @PostMapping("/save")
     fun saveProduct(
         @RequestBody saveProductReqDto: SaveProductReqDto
     ): ResponseDto<String> {
-        return saveProductServiceImpl.saveProduct(reqDto = saveProductReqDto).responseMapping()
+        return saveProductService.saveProduct(reqDto = saveProductReqDto).responseMapping()
     }
 }

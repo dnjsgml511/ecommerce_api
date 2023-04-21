@@ -14,5 +14,4 @@ data class Product(
     val productCount: Int,
     val productImage: String?,
     val createDate: String,
-){
-}
+)
