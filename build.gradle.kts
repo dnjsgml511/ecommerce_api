@@ -23,13 +23,21 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
+	implementation("io.github.microutils:kotlin-logging-jvm:2.0.10")
+
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 	runtimeOnly("dev.miku:r2dbc-mysql:0.8.2.RELEASE")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
 
-	// https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-reactor
-	runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-rx3")
+
+//	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+//
+//	// https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-reactor
+//	runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
 
 	// jwt
 	implementation("io.jsonwebtoken:jjwt-api:0.11.2")

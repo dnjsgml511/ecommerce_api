@@ -10,6 +10,7 @@ data class Member(
     val memberNo: Int ?= null,
     val memberId: String,
     val memberPw: String,
-    val craeteDate: LocalDateTime,
+    val memberState: String,
+    val createDate: LocalDateTime,
     val recentLogin: LocalDateTime?
 )

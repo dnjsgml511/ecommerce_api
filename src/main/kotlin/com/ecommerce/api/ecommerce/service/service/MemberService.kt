@@ -4,4 +4,5 @@ import com.ecommerce.api.ecommerce.dto.req.SignupReqDto
 
 interface MemberService {
     suspend fun signup(reqDto: SignupReqDto): String
+    suspend fun signin(reqDto: SignupReqDto): String
 }
