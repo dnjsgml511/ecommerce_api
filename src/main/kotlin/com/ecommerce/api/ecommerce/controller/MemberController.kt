@@ -5,6 +5,7 @@ import com.ecommerce.api.ecommerce.framework.response.ResponseDto
 import com.ecommerce.api.ecommerce.framework.response.ResponseModel
 import com.ecommerce.api.ecommerce.service.impl.MemberServiceImpl
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -17,9 +18,17 @@ class MemberController(
 
     @PostMapping("/signup")
     suspend fun signup(
-        @RequestParam signupReqDto: SignupReqDto
+        @RequestBody signupReqDto: SignupReqDto
     ): ResponseDto<String> {
         return memberService.signup(reqDto = signupReqDto)
+            .responseMapping()
+    }
+
+    @PostMapping("/signin")
+    suspend fun signin(
+        @RequestBody signupReqDto: SignupReqDto
+    ): ResponseDto<String> {
+        return memberService.signin(reqDto = signupReqDto)
             .responseMapping()
     }
 }
