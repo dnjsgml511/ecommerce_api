@@ -28,9 +28,11 @@ class ProductController(
     }
 
     @PostMapping("/save")
-    fun saveProduct(
+    suspend fun saveProduct(
         @RequestBody saveProductReqDto: SaveProductReqDto
     ): ResponseDto<String> {
-        return saveProductService.saveProduct(reqDto = saveProductReqDto).responseMapping()
+        return saveProductService.saveProduct(
+            reqDto = saveProductReqDto, sellerNo = 1
+        ).responseMapping()
     }
 }
