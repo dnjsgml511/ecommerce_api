@@ -1,9 +1,11 @@
 package com.ecommerce.api.ecommerce.controller
 
 import com.ecommerce.api.ecommerce.dto.req.SaveBasketReqDto
+import com.ecommerce.api.ecommerce.dto.res.BasketResDto
 import com.ecommerce.api.ecommerce.framework.response.ResponseDto
 import com.ecommerce.api.ecommerce.framework.response.ResponseModel
 import com.ecommerce.api.ecommerce.service.impl.BasketServiceImpl
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -21,6 +23,11 @@ class BasketController(
     ): ResponseDto<String> {
         return basketServiceImpl.saveBasket(reqDto = saveBasketReqDto, memberNo = 1)
             .responseMapping()
+    }
+
+    @GetMapping("/list")
+    suspend fun getBasketList(): ResponseDto<List<BasketResDto>> {
+        return basketServiceImpl.getBasket(memberNo = 1).responseMapping()
     }
 
 }
