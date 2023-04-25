@@ -2,7 +2,6 @@ package com.ecommerce.api.ecommerce.entity
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
-import java.time.LocalDateTime
 
 @Table("member")
 data class Member(
@@ -10,7 +9,8 @@ data class Member(
     val memberNo: Int ?= null,
     val memberId: String,
     val memberPw: String,
+    val memberName: String,
     val memberState: String,
-    val createDate: LocalDateTime,
-    val recentLogin: LocalDateTime?
+    val createDate: String,
+    val recentLogin: String?
 )

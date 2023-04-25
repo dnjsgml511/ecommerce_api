@@ -17,15 +17,14 @@ class MemberServiceImpl(
     private val memberRepository: MemberRepository
 ): MemberService {
 
-    val log = KotlinLogging.logger{}
-
     override suspend fun signup(reqDto: SignupReqDto): String = coroutineScope{
         val passwordHashed = BCrypt.hashpw(reqDto.memberPw, BCrypt.gensalt(10))
 
         val entity = Member(
             memberId = reqDto.memberId,
             memberPw = passwordHashed,
-            createDate = LocalDateTime.now(),
+            memberName = reqDto.memberName,
+            createDate = LocalDateTime.now().toString(),
             memberState = "200",
             recentLogin = null
         )
