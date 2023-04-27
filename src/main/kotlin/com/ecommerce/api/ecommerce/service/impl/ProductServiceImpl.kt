@@ -2,7 +2,7 @@ package com.ecommerce.api.ecommerce.service.impl
 
 import com.ecommerce.api.ecommerce.dto.req.SaveProductReqDto
 import com.ecommerce.api.ecommerce.entity.Product
-import com.ecommerce.api.ecommerce.repository.ProductRepository
+import com.ecommerce.api.ecommerce.repository.r2dbc.ProductRepository
 import com.ecommerce.api.ecommerce.service.service.ProductService
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.reactor.awaitSingle

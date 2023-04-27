@@ -1,7 +1,7 @@
 package com.ecommerce.api.ecommerce.controller
 
 import com.ecommerce.api.ecommerce.dto.req.SaveBasketReqDto
-import com.ecommerce.api.ecommerce.dto.res.BasketResDto
+import com.ecommerce.api.ecommerce.entity.Product
 import com.ecommerce.api.ecommerce.framework.response.ResponseDto
 import com.ecommerce.api.ecommerce.framework.response.ResponseModel
 import com.ecommerce.api.ecommerce.service.impl.BasketServiceImpl
@@ -26,7 +26,7 @@ class BasketController(
     }
 
     @GetMapping("/list")
-    suspend fun getBasketList(): ResponseDto<List<BasketResDto>> {
+    suspend fun getBasketList(): ResponseDto<List<Product>> {
         return basketServiceImpl.getBasket(memberNo = 1).responseMapping()
     }
 

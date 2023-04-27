@@ -34,6 +34,8 @@ dependencies {
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-rx3")
 
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
 //	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
 //
 //	// https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-reactor

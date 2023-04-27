@@ -3,7 +3,7 @@ package com.ecommerce.api.ecommerce.service.impl
 import com.ecommerce.api.ecommerce.dto.req.SaveReviewReqDto
 import com.ecommerce.api.ecommerce.dto.req.UpdateReviewReqDto
 import com.ecommerce.api.ecommerce.entity.Review
-import com.ecommerce.api.ecommerce.repository.ReviewRepository
+import com.ecommerce.api.ecommerce.repository.r2dbc.ReviewRepository
 import com.ecommerce.api.ecommerce.service.service.ReviewService
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.reactor.awaitSingle
