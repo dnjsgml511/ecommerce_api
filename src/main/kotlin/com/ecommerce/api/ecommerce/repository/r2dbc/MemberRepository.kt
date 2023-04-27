@@ -1,4 +1,4 @@
-package com.ecommerce.api.ecommerce.repository
+package com.ecommerce.api.ecommerce.repository.r2dbc
 
 import com.ecommerce.api.ecommerce.entity.Member
 import org.springframework.data.repository.reactive.ReactiveCrudRepository

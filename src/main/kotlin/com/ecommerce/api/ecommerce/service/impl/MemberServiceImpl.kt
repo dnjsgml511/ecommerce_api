@@ -2,7 +2,7 @@ package com.ecommerce.api.ecommerce.service.impl
 
 import com.ecommerce.api.ecommerce.dto.req.SignupReqDto
 import com.ecommerce.api.ecommerce.entity.Member
-import com.ecommerce.api.ecommerce.repository.MemberRepository
+import com.ecommerce.api.ecommerce.repository.r2dbc.MemberRepository
 import com.ecommerce.api.ecommerce.service.service.MemberService
 import kotlinx.coroutines.coroutineScope
 import org.mindrot.jbcrypt.BCrypt
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import kotlinx.coroutines.reactor.awaitSingle
 import kotlinx.coroutines.reactor.awaitSingleOrNull
-import mu.KotlinLogging
 
 @Service
 class MemberServiceImpl(

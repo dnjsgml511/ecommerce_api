@@ -1,57 +1,40 @@
 package com.ecommerce.api.ecommerce.service.impl
 
 import com.ecommerce.api.ecommerce.dto.req.SaveBasketReqDto
-import com.ecommerce.api.ecommerce.dto.res.BasketResDto
-import com.ecommerce.api.ecommerce.entity.Basket
-import com.ecommerce.api.ecommerce.repository.BasketRepository
-import com.ecommerce.api.ecommerce.repository.MemberRepository
-import com.ecommerce.api.ecommerce.repository.ProductRepository
+import com.ecommerce.api.ecommerce.entity.Product
+import com.ecommerce.api.ecommerce.repository.r2dbc.ProductRepository
 import com.ecommerce.api.ecommerce.service.service.BasketService
-import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.reactive.asFlow
-import kotlinx.coroutines.reactor.awaitSingle
-import kotlinx.coroutines.reactor.awaitSingleOrNull
+import mu.KotlinLogging
+import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Service
 
+// https://unluckyjung.github.io/spring/2023/03/11/spring-redisTemplate/
 @Service
 class BasketServiceImpl(
-    private val basketRepository: BasketRepository,
     private val productRepository: ProductRepository,
-    private val memberRepository: MemberRepository,
-): BasketService {
-    override suspend fun saveBasket(reqDto: SaveBasketReqDto, memberNo: Int): String = coroutineScope {
-        val entity = Basket(
-            basketNo = null,
-            productNo = reqDto.productNo,
-            memberNo = memberNo
-        )
+    private val redisTemplate: StringRedisTemplate,
+) : BasketService {
 
-        basketRepository.save(entity).awaitSingle()
-            .run { "성공했습니다." }
+    private val log = KotlinLogging.logger{}
+
+    override suspend fun saveBasket(reqDto: SaveBasketReqDto, memberNo: Int): String = coroutineScope {
+
+        val redis = redisTemplate.opsForList()
+        redis.rightPush(memberNo.toString(), reqDto.productNo.toString())
+
+        "성공했습니다"
     }
 
-    override suspend fun getBasket(memberNo: Int): List<BasketResDto> = coroutineScope{
-        val basketData = basketRepository.findByMemberNo(memberNo = memberNo)
+    override suspend fun getBasket(memberNo: Int): List<Product> = coroutineScope {
+
+        val operations = redisTemplate.opsForList().operations
+        val basketData = (operations.opsForList().range(memberNo.toString(), 0, -1) ?: listOf())
+            .map{ it.toInt() }
+
+        return@coroutineScope productRepository.findByProductNoIn(basketData)
             .asFlow().toList()
-
-        basketData.mapNotNull {
-            val memberData = async {
-                memberRepository.findById(it.memberNo).awaitSingleOrNull()
-            }
-
-            val productData = async {
-                productRepository.findById(it.productNo).awaitSingleOrNull()
-            }
-
-            BasketResDto(
-                basketNo = it.basketNo ?: 0,
-                productNo = it.productNo,
-                memberNo = it.memberNo,
-                memberName = memberData.await()?.memberName ?: "",
-                productName = productData.await()?.productName ?: ""
-            )
-        }
     }
 }
