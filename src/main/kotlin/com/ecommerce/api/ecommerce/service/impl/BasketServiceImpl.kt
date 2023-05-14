@@ -25,7 +25,7 @@ class BasketServiceImpl(
         val redis = redisTemplate.opsForList()
         redis.rightPush(memberNo.toString(), reqDto.productNo.toString())
 
-        "성공했습니다"
+        "success"
     }
 
     override suspend fun getBasket(memberNo: Int): List<Product> = coroutineScope {

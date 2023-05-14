@@ -1,8 +1,6 @@
 package com.ecommerce.api.ecommerce.dto.req
 
-data class SignupReqDto(
+data class SigninReqDto(
     val memberId: String,
     val memberPw: String,
-    val memberName: String,
-    val email: String,
 )

@@ -25,7 +25,7 @@ class ReviewServiceImpl(
         )
 
         reviewRepository.save(entity).awaitSingle()
-            .run { "성공했습니다." }
+            .run { "success" }
     }
 
     override suspend fun updateReview(reqDto: UpdateReviewReqDto): String = coroutineScope{
@@ -39,6 +39,6 @@ class ReviewServiceImpl(
         )
 
         reviewRepository.save(updateEntity).awaitSingle()
-            .run { "성공했습니다." }
+            .run { "success" }
     }
 }
