@@ -25,16 +25,22 @@ class MessageService(
     fun mailSend(mailRequestDto: MailRequestDto, fileName: String) {
         send(mailRequestDto, fileName)
     }
+    fun mailSend(to: Array<String>, subject: String, text: String, fileName: String){
+        val dto = MailRequestDto(
+            to = to,
+            subject = subject,
+            text = text,
+        )
+        mailSend(dto, fileName)
+    }
 
     private fun send(mailRequestDto: MailRequestDto, fileName: String) {
         val subject: String = mailRequestDto.subject
         val text: String = mailRequestDto.text
         val context = Context()
-        context.setVariable("subject", subject)
         context.setVariable("text", text)
-        context.setVariable("from", fromAddress)
         try {
-            mailManager.setSubject(subject)
+            mailManager.setSubject("[원희상점] $subject")
             mailManager.setThymeleafText(context, fileName, true)
             mailManager.setFromName(fromAddress, fromName)
             for (to in mailRequestDto.to) {
