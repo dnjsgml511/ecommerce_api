@@ -6,4 +6,5 @@ import reactor.core.publisher.Mono
 
 interface MemberRepository: ReactiveCrudRepository<Member, Int> {
     fun findByMemberId(memberId: String): Mono<Member>
+    fun findByMemberIdAndEmail(memberId: String, email: String): Mono<Member>
 }
