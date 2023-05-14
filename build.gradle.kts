@@ -49,6 +49,10 @@ dependencies {
 	// 암호화
 	implementation("de.svenkubiak:jBCrypt:0.4.1")
 
+	// 메일
+	implementation("org.springframework.boot:spring-boot-starter-mail")
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+
 
 //	// spring security
 //	implementation("org.springframework.boot:spring-boot-starter-security")

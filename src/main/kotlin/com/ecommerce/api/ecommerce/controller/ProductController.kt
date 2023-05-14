@@ -1,6 +1,7 @@
 package com.ecommerce.api.ecommerce.controller
 
 import com.ecommerce.api.ecommerce.dto.req.SaveProductReqDto
+import com.ecommerce.api.ecommerce.dto.res.ProductDetailResDto
 import com.ecommerce.api.ecommerce.entity.Product
 import com.ecommerce.api.ecommerce.framework.response.ResponseDto
 import com.ecommerce.api.ecommerce.framework.response.ResponseModel
@@ -23,6 +24,13 @@ class ProductController(
         @RequestParam(value = "productName", defaultValue = "") productName: String
     ): ResponseDto<List<Product>> {
         return productService.getProductList(productName = productName).responseMapping()
+    }
+
+    @GetMapping("/detail")
+    suspend fun productDetail(
+        @RequestParam(value = "productNo", defaultValue = "") productNo: Int
+    ): ResponseDto<ProductDetailResDto?> {
+        return productService.getProductDetail(productNo = productNo).responseMapping()
     }
 
     @PostMapping("/save")
