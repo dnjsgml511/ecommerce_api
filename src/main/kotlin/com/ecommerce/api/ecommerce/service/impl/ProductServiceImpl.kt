@@ -4,7 +4,6 @@ import com.ecommerce.api.ecommerce.dto.req.SaveProductReqDto
 import com.ecommerce.api.ecommerce.dto.res.ProductDetailResDto
 import com.ecommerce.api.ecommerce.entity.Product
 import com.ecommerce.api.ecommerce.repository.r2dbc.ProductRepository
-import com.ecommerce.api.ecommerce.service.service.ProductService
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.reactor.awaitSingle
 import kotlinx.coroutines.reactor.awaitSingleOrNull
@@ -15,16 +14,16 @@ import java.time.LocalDateTime
 @Service
 class ProductServiceImpl(
     private val productRepository: ProductRepository
-): ProductService {
+) {
 
-    override suspend fun getProductList(productName: String): List<Product> = coroutineScope{
+    suspend fun getProductList(productName: String): List<Product> = coroutineScope{
         val wildCardProductName = "%${productName}%"
         val sort = Sort.by(Sort.Direction.DESC, "productNo")
         productRepository.findByProductNameLike(productName = wildCardProductName, sort)
             .toStream().toList()
     }
 
-    override suspend fun getProductDetail(productNo: Int): ProductDetailResDto? = coroutineScope{
+    suspend fun getProductDetail(productNo: Int): ProductDetailResDto? = coroutineScope{
         val productData = productRepository.findById(productNo).awaitSingleOrNull()
 
         ProductDetailResDto(
@@ -39,7 +38,7 @@ class ProductServiceImpl(
         )
     }
 
-    override suspend fun saveProduct(reqDto: SaveProductReqDto, sellerNo: Int): String = coroutineScope{
+    suspend fun saveProduct(reqDto: SaveProductReqDto, sellerNo: Int): String = coroutineScope{
 
         val entity = Product(
             productNo = null,

@@ -1,6 +1,8 @@
 
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   r2dbc:
     url: r2dbc:mysql://localhost:3306/ecommerce?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
     username: root
@@ -8,6 +10,21 @@ spring:
   redis:
     host: localhost
     port: 6379
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 'dnjsgml511406@gmail.com'
+    password: 'ojzbrzceftftbtzm'
+    properties.mail.smtp:
+      nickname: 'testLee'
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
 logging:
   level:
     org.springframework.r2dbc.core: debug
+
+
+
+jwt:
+  key: 236979CB6F1AD6B6A6184A31E6BE37DB3818CC36871E26235DD67DCFE4041492

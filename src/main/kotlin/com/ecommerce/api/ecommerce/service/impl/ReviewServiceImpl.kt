@@ -4,7 +4,6 @@ import com.ecommerce.api.ecommerce.dto.req.SaveReviewReqDto
 import com.ecommerce.api.ecommerce.dto.req.UpdateReviewReqDto
 import com.ecommerce.api.ecommerce.entity.Review
 import com.ecommerce.api.ecommerce.repository.r2dbc.ReviewRepository
-import com.ecommerce.api.ecommerce.service.service.ReviewService
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.reactor.awaitSingle
 import kotlinx.coroutines.reactor.awaitSingleOrNull
@@ -14,8 +13,8 @@ import java.time.LocalDateTime
 @Service
 class ReviewServiceImpl(
     val reviewRepository: ReviewRepository,
-): ReviewService {
-    override suspend fun saveReview(reqDto: SaveReviewReqDto): String = coroutineScope{
+) {
+    suspend fun saveReview(reqDto: SaveReviewReqDto): String = coroutineScope{
         val entity = Review(
             reviewNo = null,
             reviewTitle = reqDto.reviewTitle,
@@ -28,7 +27,7 @@ class ReviewServiceImpl(
             .run { "success" }
     }
 
-    override suspend fun updateReview(reqDto: UpdateReviewReqDto): String = coroutineScope{
+    suspend fun updateReview(reqDto: UpdateReviewReqDto): String = coroutineScope{
         val reviewData = reviewRepository.findById(reqDto.reviewNo)
             .awaitSingleOrNull() ?: return@coroutineScope "실패했습니다."
 

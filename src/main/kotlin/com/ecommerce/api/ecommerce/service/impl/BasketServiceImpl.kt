@@ -3,7 +3,6 @@ package com.ecommerce.api.ecommerce.service.impl
 import com.ecommerce.api.ecommerce.dto.req.SaveBasketReqDto
 import com.ecommerce.api.ecommerce.entity.Product
 import com.ecommerce.api.ecommerce.repository.r2dbc.ProductRepository
-import com.ecommerce.api.ecommerce.service.service.BasketService
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.reactive.asFlow
@@ -16,11 +15,11 @@ import org.springframework.stereotype.Service
 class BasketServiceImpl(
     private val productRepository: ProductRepository,
     private val redisTemplate: StringRedisTemplate,
-) : BasketService {
+) {
 
     private val log = KotlinLogging.logger{}
 
-    override suspend fun saveBasket(reqDto: SaveBasketReqDto, memberNo: Int): String = coroutineScope {
+    suspend fun saveBasket(reqDto: SaveBasketReqDto, memberNo: Int): String = coroutineScope {
 
         val redis = redisTemplate.opsForList()
         redis.rightPush(memberNo.toString(), reqDto.productNo.toString())
@@ -28,7 +27,7 @@ class BasketServiceImpl(
         "success"
     }
 
-    override suspend fun getBasket(memberNo: Int): List<Product> = coroutineScope {
+     suspend fun getBasket(memberNo: Int): List<Product> = coroutineScope {
 
         val operations = redisTemplate.opsForList().operations
         val basketData = (operations.opsForList().range(memberNo.toString(), 0, -1) ?: listOf())
