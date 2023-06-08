@@ -1,16 +1,14 @@
 package com.ecommerce.api.ecommerce.service.impl
 
-import com.ecommerce.api.ecommerce.dto.dto.MailRequestDto
 import com.ecommerce.api.ecommerce.dto.req.*
 import com.ecommerce.api.ecommerce.dto.res.MemberResDto
 import com.ecommerce.api.ecommerce.entity.EmailAuth
 import com.ecommerce.api.ecommerce.entity.Member
-import com.ecommerce.api.ecommerce.framework.config.jwt.JwtComponent
+//import com.ecommerce.api.ecommerce.framework.config.security.JwtComponent
 import com.ecommerce.api.ecommerce.framework.util.mail.MessageService
 import com.ecommerce.api.ecommerce.framework.util.random.CreateRandomString
 import com.ecommerce.api.ecommerce.repository.r2dbc.EmailAuthRepository
 import com.ecommerce.api.ecommerce.repository.r2dbc.MemberRepository
-import com.ecommerce.api.ecommerce.service.service.MemberService
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.reactor.awaitSingle
@@ -26,10 +24,10 @@ class MemberServiceImpl(
     private val emailAuthRepository: EmailAuthRepository,
     private val randomString: CreateRandomString,
     private val messageService: MessageService,
-    private val jwtComponent: JwtComponent,
-): MemberService {
+//    private val jwtComponent: JwtComponent,
+) {
 
-    override suspend fun signup(reqDto: SignupReqDto): String = coroutineScope{
+    suspend fun signup(reqDto: SignupReqDto): String = coroutineScope{
 
         // 아이디 중복 체크
         val idCheck = memberRepository.findByMemberId(memberId = reqDto.memberId)
@@ -61,7 +59,7 @@ class MemberServiceImpl(
         "success"
     }
 
-    override suspend fun signin(reqDto: SigninReqDto): String = coroutineScope{
+    suspend fun signin(reqDto: SigninReqDto): String = coroutineScope{
 
         val memberData = memberRepository.findByMemberId(memberId = reqDto.memberId)
             .awaitSingleOrNull() ?: return@coroutineScope "fail"
@@ -70,12 +68,15 @@ class MemberServiceImpl(
 
         if(!validatePw) return@coroutineScope "fail"
 
-        val token = jwtComponent.createToken(memberData.memberNo ?: 0)
+//        val token = jwtComponent.createToken(memberData.memberNo ?: 0)
 
-        token
+//        token
+
+        "test,,"
     }
 
-    override suspend fun updatePassword(reqDto: UpdatePasswordReqDto, memberNo: Int): String = coroutineScope{
+
+    suspend fun updatePassword(reqDto: UpdatePasswordReqDto, memberNo: Int): String = coroutineScope{
         val memberData = memberRepository.findById(memberNo).awaitSingleOrNull() ?: return@coroutineScope "fail"
 
         val passwordHashed = BCrypt.hashpw(reqDto.memberPw, BCrypt.gensalt(10))
@@ -89,7 +90,7 @@ class MemberServiceImpl(
         "success"
     }
 
-    override suspend fun findPassword(reqDto: FindPwReqDto): String = coroutineScope{
+    suspend fun findPassword(reqDto: FindPwReqDto): String = coroutineScope{
         // 아이디, 이메일 체크
         val memberData = memberRepository.findByMemberIdAndEmail(memberId = reqDto.memberId, email = reqDto.email)
             .awaitSingleOrNull() ?: return@coroutineScope "fail"
@@ -112,7 +113,7 @@ class MemberServiceImpl(
         "success"
     }
 
-    override suspend fun createAuth(reqDto: CreateAuthReqDto): String = coroutineScope{
+    suspend fun createAuth(reqDto: CreateAuthReqDto): String = coroutineScope{
         val newAuth = randomString.randomPassword(8)
 
         val entity = EmailAuth(
@@ -132,7 +133,7 @@ class MemberServiceImpl(
         "success"
     }
 
-    override suspend fun getMemberInfo(): MemberResDto = coroutineScope{
+    suspend fun getMemberInfo(): MemberResDto = coroutineScope{
         val memberData = async {
             memberRepository.findById(1).awaitSingleOrNull()
         }

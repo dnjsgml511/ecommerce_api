@@ -36,6 +36,9 @@ dependencies {
 
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
+	compileOnly("javax.servlet:javax.servlet-api:3.0.1")
+
+
 //	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
 //
 //	// https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-reactor
@@ -53,42 +56,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-mail")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
-
-//	// spring security
-//	implementation("org.springframework.boot:spring-boot-starter-security")
-//	implementation("org.springframework.security:spring-security-test")
-//	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-config
-//	implementation("org.springframework.security:spring-security-config:5.7.3")
-//
-//
-//	// jwt
-//	implementation("io.jsonwebtoken:jjwt:0.9.1")
-
-
-	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-r2dbc
-//	implementation("org.springframework.boot:spring-boot-starter-webflux")
-//	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
-//	implementation("com.github.jasync-sql:jasync-r2dbc-mysql:2.0.8")
-//	runtimeOnly("mysql:mysql-connector-java")
-//
-//	runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")
-//	implementation("io.projectreactor:reactor-core:2.0.0.RC1")
-//
-//	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
-//	runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.0")
-//	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.6.0")
-//
-//	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
-//	testImplementation("io.projectreactor:reactor-test")
-//
-//	// https://mvnrepository.com/artifact/io.projectreactor/reactor-core
-//	implementation("io.projectreactor:reactor-core:3.4.23")
-
-//	implementation("org.springframework.boot:spring-boot-starter-webflux")
-//	implementation("org.springframework.boot.experimental:spring-boot-starter-data-r2dbc")
-//	testImplementation("org.springframework.boot.experimental:spring-boot-test-autoconfigure-r2dbc")
-//	testImplementation("io.projectreactor:reactor-test")
-
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+	implementation("org.springframework.boot:spring-boot-starter-security:2.6.3")
 }
 
 tasks.withType<KotlinCompile> {
