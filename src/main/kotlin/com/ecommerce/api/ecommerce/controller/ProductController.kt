@@ -5,8 +5,7 @@ import com.ecommerce.api.ecommerce.dto.res.ProductDetailResDto
 import com.ecommerce.api.ecommerce.entity.Product
 import com.ecommerce.api.ecommerce.framework.response.ResponseDto
 import com.ecommerce.api.ecommerce.framework.response.ResponseModel
-import com.ecommerce.api.ecommerce.service.impl.ProductServiceImpl
-import mu.KotlinLogging
+import com.ecommerce.api.ecommerce.service.ProductService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -17,10 +16,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/product")
 class ProductController(
-    private val productService: ProductServiceImpl,
+        private val productService: ProductService,
 ) : ResponseModel(){
-
-    val log = KotlinLogging.logger {  }
 
     @GetMapping("/list")
     suspend fun productList(

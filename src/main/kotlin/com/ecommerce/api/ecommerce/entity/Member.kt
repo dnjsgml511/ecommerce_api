@@ -1,5 +1,6 @@
 package com.ecommerce.api.ecommerce.entity
 
+import com.ecommerce.api.ecommerce.dto.req.SignupReqDto
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDateTime
@@ -15,4 +16,15 @@ data class Member(
     val createDate: LocalDateTime,
     val recentLogin: String?,
     val email: String,
-)
+){
+    constructor(reqDto: SignupReqDto) : this(
+        memberId = reqDto.memberId,
+        memberPw = reqDto.memberPw,
+        memberName = reqDto.memberName,
+        memberState = "200",
+        createDate = LocalDateTime.now(),
+        recentLogin = null,
+        email = reqDto.email
+    )
+
+}

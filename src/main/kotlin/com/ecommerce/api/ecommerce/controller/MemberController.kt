@@ -1,26 +1,22 @@
 package com.ecommerce.api.ecommerce.controller
 
-import com.ecommerce.api.ecommerce.dto.req.FindPwReqDto
-import com.ecommerce.api.ecommerce.dto.req.SigninReqDto
-import com.ecommerce.api.ecommerce.dto.req.SignupReqDto
-import com.ecommerce.api.ecommerce.dto.req.UpdatePasswordReqDto
-import com.ecommerce.api.ecommerce.dto.res.MemberResDto
+import com.ecommerce.api.ecommerce.dto.req.*
 import com.ecommerce.api.ecommerce.framework.response.ResponseDto
 import com.ecommerce.api.ecommerce.framework.response.ResponseModel
-import com.ecommerce.api.ecommerce.service.impl.MemberServiceImpl
+import com.ecommerce.api.ecommerce.service.member.MemberService
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/member")
 class MemberController(
-    private val memberService: MemberServiceImpl
+    private val memberService: MemberService
 ): ResponseModel() {
 
     @PostMapping("/signup")
     suspend fun signup(
         @RequestBody signupReqDto: SignupReqDto
     ): ResponseDto<String> {
-        return memberService.signup(reqDto = signupReqDto)
+        return memberService.signUp(reqDto = signupReqDto)
             .responseMapping()
     }
 
@@ -28,15 +24,15 @@ class MemberController(
     suspend fun signin(
         @RequestBody signinReqDto: SigninReqDto
     ): ResponseDto<String> {
-        return memberService.signin(reqDto = signinReqDto)
+        return memberService.signIn(reqDto = signinReqDto)
             .responseMapping()
     }
 
     @PostMapping("/password/update")
     suspend fun updatePassword(
-        @RequestBody updatePasswordReqDto: UpdatePasswordReqDto
+        @RequestBody changePasswordReqDto: ChangePasswordReqDto
     ): ResponseDto<String> {
-        return memberService.updatePassword(reqDto = updatePasswordReqDto, memberNo = 1)
+        return memberService.changePw(reqDto = changePasswordReqDto)
             .responseMapping()
     }
 
@@ -48,10 +44,27 @@ class MemberController(
             .responseMapping()
     }
 
-    @GetMapping("/info")
-    suspend fun getMemberInfo(
-    ): ResponseDto<MemberResDto> {
-        return memberService.getMemberInfo()
+    @PostMapping("/id/find")
+    suspend fun findId(
+        @RequestBody findIdReqDto: FindIdReqDto
+    ): ResponseDto<String> {
+        return memberService.findId(reqDto = findIdReqDto)
+            .responseMapping()
+    }
+
+    @PostMapping("/id/update")
+    suspend fun updateId(
+        @RequestBody changeIdReqDto: ChangeIdReqDto
+    ): ResponseDto<String> {
+        return memberService.changeId(reqDto = changeIdReqDto)
+            .responseMapping()
+    }
+
+    @PostMapping("/email/update")
+    suspend fun updateEmail(
+        @RequestBody changeEmailReqDto: ChangeEmailReqDto
+    ): ResponseDto<String> {
+        return memberService.changeEmail(reqDto = changeEmailReqDto)
             .responseMapping()
     }
 }

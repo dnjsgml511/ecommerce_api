@@ -1,4 +1,4 @@
-package com.ecommerce.api.ecommerce.service.impl
+package com.ecommerce.api.ecommerce.service
 
 import com.ecommerce.api.ecommerce.dto.req.SaveProductReqDto
 import com.ecommerce.api.ecommerce.dto.res.ProductDetailResDto
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
 @Service
-class ProductServiceImpl(
+class ProductService(
     private val productRepository: ProductRepository
 ) {
 

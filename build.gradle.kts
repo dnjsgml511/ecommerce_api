@@ -38,6 +38,8 @@ dependencies {
 
 	compileOnly("javax.servlet:javax.servlet-api:3.0.1")
 
+	implementation("org.apache.commons:commons-lang3:3.0")
+
 
 //	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
 //
@@ -52,12 +54,14 @@ dependencies {
 	// 암호화
 	implementation("de.svenkubiak:jBCrypt:0.4.1")
 
+
+
 	// 메일
 	implementation("org.springframework.boot:spring-boot-starter-mail")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
-	implementation("org.springframework.boot:spring-boot-starter-security:2.6.3")
+//	implementation("org.springframework.boot:spring-boot-starter-security:2.6.3")
 }
 
 tasks.withType<KotlinCompile> {

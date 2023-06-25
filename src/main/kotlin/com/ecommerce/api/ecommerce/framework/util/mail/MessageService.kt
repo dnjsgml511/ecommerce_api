@@ -1,10 +1,10 @@
 package com.ecommerce.api.ecommerce.framework.util.mail
 
 import com.ecommerce.api.ecommerce.dto.dto.MailRequestDto
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
-import org.thymeleaf.context.Context;
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.scheduling.annotation.Async
+import org.springframework.stereotype.Service
+import org.thymeleaf.context.Context
 
 @Service
 class MessageService(
@@ -28,6 +28,15 @@ class MessageService(
     fun mailSend(to: Array<String>, subject: String, text: String, fileName: String){
         val dto = MailRequestDto(
             to = to,
+            subject = subject,
+            text = text,
+        )
+        mailSend(dto, fileName)
+    }
+
+    fun mailSend(to: String, subject: String, text: String, fileName: String){
+        val dto = MailRequestDto(
+            to = arrayOf(to),
             subject = subject,
             text = text,
         )

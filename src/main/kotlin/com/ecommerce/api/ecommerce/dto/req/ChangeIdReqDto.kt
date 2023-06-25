@@ -1,6 +1,6 @@
 package com.ecommerce.api.ecommerce.dto.req
 
-data class FindPwReqDto(
+data class ChangeIdReqDto(
     val memberNo: Int,
-    val password: String,
+    val memberId: String,
 )
