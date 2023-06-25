@@ -1,4 +1,4 @@
-package com.ecommerce.api.ecommerce.service.impl
+package com.ecommerce.api.ecommerce.service
 
 import com.ecommerce.api.ecommerce.dto.req.SaveReviewReqDto
 import com.ecommerce.api.ecommerce.dto.req.UpdateReviewReqDto
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
 @Service
-class ReviewServiceImpl(
+class ReviewService(
     val reviewRepository: ReviewRepository,
 ) {
     suspend fun saveReview(reqDto: SaveReviewReqDto): String = coroutineScope{
