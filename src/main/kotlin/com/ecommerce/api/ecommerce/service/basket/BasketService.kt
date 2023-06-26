@@ -1,8 +1,10 @@
-package com.ecommerce.api.ecommerce.service
+package com.ecommerce.api.ecommerce.service.basket
 
+import com.ecommerce.api.ecommerce.dto.req.DeleteBasketReqDto
 import com.ecommerce.api.ecommerce.dto.req.SaveBasketReqDto
 import com.ecommerce.api.ecommerce.entity.Product
 import com.ecommerce.api.ecommerce.repository.r2dbc.ProductRepository
+import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.reactive.asFlow
@@ -15,6 +17,21 @@ class BasketService(
     private val productRepository: ProductRepository,
     private val redisTemplate: StringRedisTemplate,
 ) {
+
+    suspend fun deleteBasket(reqDto: DeleteBasketReqDto, memberNo: Int): String = coroutineScope {
+
+        val basketList = getBasket(memberNo).toMutableList()
+        basketList.removeIf { product -> product.productNo == reqDto.productNo }
+
+        val operations = redisTemplate.opsForList().operations
+        operations.delete(memberNo.toString())
+
+        basketList.map {
+            saveBasket(SaveBasketReqDto(productNo = reqDto.productNo), memberNo)
+        }
+
+        "success"
+    }
 
     suspend fun saveBasket(reqDto: SaveBasketReqDto, memberNo: Int): String = coroutineScope {
 
