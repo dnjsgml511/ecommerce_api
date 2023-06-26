@@ -5,7 +5,7 @@ import com.ecommerce.api.ecommerce.dto.res.ProductDetailResDto
 import com.ecommerce.api.ecommerce.entity.Product
 import com.ecommerce.api.ecommerce.framework.response.ResponseDto
 import com.ecommerce.api.ecommerce.framework.response.ResponseModel
-import com.ecommerce.api.ecommerce.service.ProductService
+import com.ecommerce.api.ecommerce.service.product.ProductService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
