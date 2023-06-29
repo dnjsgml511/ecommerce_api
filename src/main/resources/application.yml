@@ -4,7 +4,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   r2dbc:
-    url: r2dbc:mysql://localhost:3306/ecommerce?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    url: r2dbc:mysql://:3306/ecommerce?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
     username: root
     password: root
   redis:
@@ -13,8 +13,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: 'dnjsgml511406@gmail.com'
-    password: 'ojzbrzceftftbtzm'
+    username: ''
+    password: ''
     properties.mail.smtp:
       nickname: 'testLee'
       auth: true
