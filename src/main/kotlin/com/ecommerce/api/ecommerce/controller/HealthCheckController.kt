@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class HealthCheckController {
 
-    @Value("spring.r2dbc.url")
+    @Value("\${spring.r2dbc.url}")
     private lateinit var mysqlHostPort: String
 
     @GetMapping("/health")
