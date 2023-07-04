@@ -1,6 +1,8 @@
 package com.ecommerce.api.ecommerce.service.member
 
 import com.ecommerce.api.ecommerce.dto.req.*
+import com.ecommerce.api.ecommerce.dto.res.MemberResDto
+import com.ecommerce.api.ecommerce.dto.res.TokenResDto
 import com.ecommerce.api.ecommerce.service.mail.SendEmail
 import com.ecommerce.api.ecommerce.service.member.component.*
 import com.ecommerce.api.ecommerce.service.token.Token
@@ -35,14 +37,19 @@ class MemberService(
 
         sendEmail.welcomeMail(email = reqDto.email, name = reqDto.memberName)
 
-        token.createToken(memberNo = member.memberNo ?: 0)
+        val token = token.createToken(memberNo = member.memberNo ?: 0)
+
+        TokenResDto(token = token)
     }
     suspend fun signIn(reqDto: SigninReqDto) = coroutineScope {
+        println("SigninReqDto: $reqDto")
         val member = getMember.getMember(reqDto.memberId) ?: throw Exception("아이디 확인")
 
         if(!encryption.checkPassword(reqDto.memberPw, member.memberPw)) throw Exception("비밀번호 확인")
 
-        token.createToken(memberNo = member.memberNo ?: 0)
+        val token = token.createToken(memberNo = member.memberNo ?: 0)
+
+        TokenResDto(token = token)
     }
     suspend fun findId(reqDto: FindIdReqDto) = coroutineScope {
         val member = getMember.getMemberToEmail(email = reqDto.email)
@@ -89,6 +96,13 @@ class MemberService(
             ?: throw Exception("이메일 업데이트 실패")
 
         return@coroutineScope "success"
+    }
+
+    suspend fun getUser(memberNo: Int): MemberResDto = coroutineScope {
+        val user = getMember.getMemberToMemberNo(memberNo)
+                ?: throw Exception("회원번호 체크")
+
+        return@coroutineScope MemberResDto(user)
     }
 
 }

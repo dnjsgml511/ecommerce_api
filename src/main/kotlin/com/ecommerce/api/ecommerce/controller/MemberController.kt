@@ -1,21 +1,26 @@
 package com.ecommerce.api.ecommerce.controller
 
 import com.ecommerce.api.ecommerce.dto.req.*
+import com.ecommerce.api.ecommerce.dto.res.MemberResDto
+import com.ecommerce.api.ecommerce.dto.res.TokenResDto
+import com.ecommerce.api.ecommerce.entity.Member
 import com.ecommerce.api.ecommerce.framework.response.ResponseDto
 import com.ecommerce.api.ecommerce.framework.response.ResponseModel
 import com.ecommerce.api.ecommerce.service.member.MemberService
+import com.ecommerce.api.ecommerce.service.token.Token
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/member")
 class MemberController(
-    private val memberService: MemberService
+    private val memberService: MemberService,
+    private val token: Token,
 ): ResponseModel() {
 
     @PostMapping("/signup")
     suspend fun signup(
         @RequestBody signupReqDto: SignupReqDto
-    ): ResponseDto<String> {
+    ): ResponseDto<TokenResDto> {
         return memberService.signUp(reqDto = signupReqDto)
             .responseMapping()
     }
@@ -23,7 +28,7 @@ class MemberController(
     @PostMapping("/signin")
     suspend fun signin(
         @RequestBody signinReqDto: SigninReqDto
-    ): ResponseDto<String> {
+    ): ResponseDto<TokenResDto> {
         return memberService.signIn(reqDto = signinReqDto)
             .responseMapping()
     }
@@ -66,5 +71,16 @@ class MemberController(
     ): ResponseDto<String> {
         return memberService.changeEmail(reqDto = changeEmailReqDto)
             .responseMapping()
+    }
+
+    @GetMapping("/user")
+    suspend fun getUser(
+        @RequestAttribute memberNo: Int
+    ): ResponseDto<MemberResDto> {
+
+        println("memberNo: $memberNo")
+
+        return memberService.getUser(memberNo = memberNo)
+                .responseMapping()
     }
 }

@@ -1,13 +1,14 @@
 package com.ecommerce.api.ecommerce.service.token
 
-import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
+import io.jsonwebtoken.*
 import io.jsonwebtoken.security.Keys
 import org.springframework.stereotype.Component
 import java.nio.charset.StandardCharsets
+import java.security.InvalidParameterException
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
+
 
 @Component
 class Token {
@@ -28,5 +29,34 @@ class Token {
             .setSigningKey(Keys.hmacShaKeyFor("{secret-key}".toByteArray(StandardCharsets.UTF_8)))
             .build()
             .parseClaimsJws(token)
+    }
+
+    fun getMemberNo(token: String): Int {
+        return (validTokenAndReturnBody(token)?.get("sub") ?: "0").toString().toInt()
+    }
+
+    fun validTokenAndReturnBody(token: String?): Claims? {
+        return try {
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .body
+        } catch (e: ExpiredJwtException) {
+            e.printStackTrace()
+            throw InvalidParameterException("유효하지 않은 토큰입니다")
+        } catch (e: UnsupportedJwtException) {
+            e.printStackTrace()
+            throw InvalidParameterException("유효하지 않은 토큰입니다")
+        } catch (e: MalformedJwtException) {
+            e.printStackTrace()
+            throw InvalidParameterException("유효하지 않은 토큰입니다")
+        } catch (e: SignatureException) {
+            e.printStackTrace()
+            throw InvalidParameterException("유효하지 않은 토큰입니다")
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
+            throw InvalidParameterException("유효하지 않은 토큰입니다")
+        }
     }
 }

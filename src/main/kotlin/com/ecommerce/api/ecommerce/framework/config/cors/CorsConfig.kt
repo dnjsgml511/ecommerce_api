@@ -2,20 +2,21 @@ package com.ecommerce.api.ecommerce.framework.config.cors
 
 import mu.KotlinLogging
 import org.springframework.context.annotation.Configuration
-import org.springframework.web.servlet.config.annotation.CorsRegistry
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+import org.springframework.web.reactive.config.CorsRegistry
+import org.springframework.web.reactive.config.EnableWebFlux
+import org.springframework.web.reactive.config.WebFluxConfigurer
 
 @Configuration
-class CorsConfig : WebMvcConfigurer {
+@EnableWebFlux
+class CorsConfig : WebFluxConfigurer {
 
     val log = KotlinLogging.logger {  }
 
-    override fun addCorsMappings(registry: CorsRegistry) {
-
-        log.info { "...cors add..." }
-
+    override fun addCorsMappings(registry: CorsRegistry){
         registry.addMapping("/**")
-            .allowedOrigins("http://localhost:3000")
-            .allowedMethods("GET", "POST")
+                .allowedOriginPatterns("*") // any host or put domain(s) here
+                .allowedMethods("GET","POST","OPTIONS") // put the http verbs you want allow
+                .allowedHeaders("*") // put the http headers you want allow
+                .allowCredentials(true)
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 
 
-@ServletComponentScan
+//@ServletComponentScan
 @SpringBootApplication
 @EnableR2dbcRepositories(basePackages = ["com.ecommerce.api.ecommerce.repository.r2dbc"])
 class EcommerceApplication
