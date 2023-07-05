@@ -11,9 +11,9 @@ class CorsConfig : WebFluxConfigurer {
 
     override fun addCorsMappings(registry: CorsRegistry){
         registry.addMapping("/**")
-                .allowedOrigins("https://port-0-ecommerce-api-dihik2mljd1jq75.sel4.cloudtype.app", "http://localhost:8080")
+                .allowedOrigins("*")
                 .allowCredentials(false)
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedMethods("*")
                 .allowedHeaders("*")
                 .exposedHeaders("*")
     }
