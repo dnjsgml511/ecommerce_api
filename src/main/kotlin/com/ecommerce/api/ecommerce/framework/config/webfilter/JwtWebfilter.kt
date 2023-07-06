@@ -21,7 +21,6 @@ class JwtWebfilter(
         "/health",
         "/favicon.ico",
 
-        "/user",
         "/member/signup",
         "/member/signin",
         "/password/update",
@@ -33,11 +32,12 @@ class JwtWebfilter(
 
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
         val checkUrl = checkUrl(exchange.request)
+        val checkMethod = checkOptions(exchange.request)
 
-        if(!checkUrl){
-            setMemberNo(exchange)
-        }
+        if(checkUrl) return chain.filter(exchange)
+        if(checkMethod) return chain.filter(exchange)
 
+        setMemberNo(exchange)
         return chain.filter(exchange)
     }
 
@@ -46,8 +46,13 @@ class JwtWebfilter(
         return ALLOWED_PATHS.contains(request.uri.path)
     }
 
+    private fun checkOptions(request: ServerHttpRequest): Boolean{
+        println("Method : ${request.method.name()} -> ${request.method.name() == "OPTIONS"}")
+        return request.method.name() == "OPTIONS"
+    }
+
     private fun setMemberNo(exchange: ServerWebExchange){
-        val jwt = exchange.request.headers[HttpHeaders.AUTHORIZATION]?.get(0)?.replace("Bearer", "") ?: ""
+        val jwt = exchange.request.headers[HttpHeaders.AUTHORIZATION.lowercase(Locale.getDefault())]?.get(0)?.replace("Bearer", "") ?: ""
         println("Token : $jwt")
         val memberNo = token.getMemberNo(jwt)
         exchange.attributes["memberNo"] = memberNo

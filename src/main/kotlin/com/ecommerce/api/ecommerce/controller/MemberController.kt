@@ -77,9 +77,6 @@ class MemberController(
     suspend fun getUser(
         @RequestAttribute memberNo: Int
     ): ResponseDto<MemberResDto> {
-
-        println("memberNo: $memberNo")
-
         return memberService.getUser(memberNo = memberNo)
                 .responseMapping()
     }
