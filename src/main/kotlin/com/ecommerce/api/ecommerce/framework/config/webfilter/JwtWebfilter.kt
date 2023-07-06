@@ -18,6 +18,9 @@ class JwtWebfilter(
 ): WebFilter {
 
     private val ALLOWED_PATHS: List<String> = listOf(
+        "/health",
+        "/favicon.ico",
+
         "/member/signup",
         "/member/signin",
         "/password/update",
@@ -38,6 +41,7 @@ class JwtWebfilter(
     }
 
     private fun checkUrl(request: ServerHttpRequest): Boolean{
+        println("Path: ${request.uri.path}")
         return ALLOWED_PATHS.contains(request.uri.path)
     }
 
