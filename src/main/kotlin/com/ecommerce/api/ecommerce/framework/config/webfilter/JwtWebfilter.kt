@@ -43,7 +43,6 @@ class JwtWebfilter(
 
     private fun setMemberNo(exchange: ServerWebExchange){
         val jwt = exchange.request.headers[HttpHeaders.AUTHORIZATION]?.get(0)?.replace("Bearer", "") ?: ""
-        println("jwt: $jwt")
         val memberNo = token.getMemberNo(jwt)
         exchange.attributes["memberNo"] = memberNo
     }
