@@ -11,7 +11,9 @@ class CorsConfig : WebFluxConfigurer {
 
     override fun addCorsMappings(registry: CorsRegistry){
         registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("*")
+                .allowedOrigins("http://localhost:3000",
+                    "https://web-ecommerce-user-20zynm2mljlg5pnr.sel4.cloudtype.app/")
+                .allowedMethods("GET", "POST", "OPTIONS")
+                .maxAge(3600);
     }
 }

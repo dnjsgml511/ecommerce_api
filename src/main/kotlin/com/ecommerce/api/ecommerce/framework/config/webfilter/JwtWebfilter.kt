@@ -21,6 +21,7 @@ class JwtWebfilter(
         "/health",
         "/favicon.ico",
 
+        "/user",
         "/member/signup",
         "/member/signin",
         "/password/update",
@@ -41,12 +42,13 @@ class JwtWebfilter(
     }
 
     private fun checkUrl(request: ServerHttpRequest): Boolean{
-        println("Path: ${request.uri.path}")
+        println("Path: ${request.uri.path} -> ${ALLOWED_PATHS.contains(request.uri.path)}")
         return ALLOWED_PATHS.contains(request.uri.path)
     }
 
     private fun setMemberNo(exchange: ServerWebExchange){
         val jwt = exchange.request.headers[HttpHeaders.AUTHORIZATION]?.get(0)?.replace("Bearer", "") ?: ""
+        println("Token : $jwt")
         val memberNo = token.getMemberNo(jwt)
         exchange.attributes["memberNo"] = memberNo
     }
