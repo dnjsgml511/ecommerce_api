@@ -18,6 +18,7 @@ data class Member(
     val birthDate: LocalDate,
     val recentLogin: String?,
     val email: String,
+    val mobile: String,
 ){
     constructor(reqDto: SignupReqDto) : this(
         memberId = reqDto.memberId,
@@ -27,7 +28,8 @@ data class Member(
         createDate = LocalDateTime.now(),
         birthDate = reqDto.birthDate,
         recentLogin = null,
-        email = reqDto.email
+        email = reqDto.email,
+        mobile = reqDto.mobile,
     )
 
 }

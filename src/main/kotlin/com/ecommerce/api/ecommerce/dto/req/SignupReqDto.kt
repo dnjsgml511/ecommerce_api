@@ -8,4 +8,5 @@ data class SignupReqDto(
     val memberName: String,
     val email: String,
     val birthDate: LocalDate,
+    val mobile: String,
 )

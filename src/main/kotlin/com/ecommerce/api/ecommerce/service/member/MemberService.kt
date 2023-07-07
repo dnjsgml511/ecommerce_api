@@ -39,7 +39,7 @@ class MemberService(
 
         val token = token.createToken(memberNo = member.memberNo ?: 0)
 
-        TokenResDto(token = token)
+        TokenResDto(token = token, permission = listOf("user", "admin"))
     }
     suspend fun signIn(reqDto: SigninReqDto) = coroutineScope {
         println("SigninReqDto: $reqDto")
@@ -49,7 +49,7 @@ class MemberService(
 
         val token = token.createToken(memberNo = member.memberNo ?: 0)
 
-        TokenResDto(token = token)
+        TokenResDto(token = token, permission = listOf("user", "admin"))
     }
     suspend fun findId(reqDto: FindIdReqDto) = coroutineScope {
         val member = getMember.getMemberToEmail(email = reqDto.email)

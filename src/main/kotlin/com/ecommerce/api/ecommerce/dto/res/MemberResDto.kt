@@ -9,6 +9,7 @@ data class MemberResDto(
     val memberName: String,
     val memberState: String,
     val birthDate: String,
+    val mobile: String,
 ){
     constructor(member: Member): this(
         memberNo = member.memberNo ?: 0,
@@ -16,6 +17,7 @@ data class MemberResDto(
         email = member.email,
         memberName = member.memberName,
         memberState = member.memberState,
-        birthDate = member.birthDate.toString()
+        birthDate = member.birthDate.toString(),
+        mobile = member.mobile,
     )
 }
